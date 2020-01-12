@@ -1,0 +1,87 @@
+#include QMK_KEYBOARD_H
+
+// Each layer gets a name for readability, which is then used in the keymap matrix below.
+// The underscores don't mean anything - you can have a layer called STUFF or any other name.
+// Layer names don't all need to be of the same length, obviously, and you can also skip them
+// entirely and just use numbers.
+enum layers {
+  _BL = 0,
+  _FL = 1,
+  _F2 = 2
+};
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+/* Keymap _BL: (Base Layer) Default Layer
+ * ,-------------------.
+ * | *_ |_FL | _F2| BS |
+ * |----|----|----|----|
+ * | TAB| /  | *  | -  |
+ * |----|----|----|----|
+ * | 7  | 8  | 9  |    |
+ * |----|----|----| +  |
+ * | 4  | 5  | 6  |    |
+ * |----|----|----|----|
+ * | 1  | 2  | 3  |    |
+ * |----|----|----| En |
+ * |   0     | .  |    |
+ * `-------------------'
+ */
+  [_BL] = LAYOUT_numpad_6x4(
+    ______,  TG(_FL),   TG(_F2),   KC_BSPC, \
+    KC_TAB,  KC_PSLS,  KC_PAST,   KC_PMNS, \
+    KC_P7,    KC_P8,    KC_P9,              \
+    KC_P4,    KC_P5,    KC_P6,     KC_PPLS, \
+    KC_P1,    KC_P2,    KC_P3,              \
+    KC_P0,              KC_PDOT,   KC_PENT
+  ),
+
+/* Keymap _FL: Function Layer
+ * ,-------------------.
+ * |_BL |*_  |_F2 |MUTE|
+ * |----|----|----|----|
+ * |F10 |F11 |F12 |VOLU|
+ * |----|----|----|----|
+ * |F07 |F08 |F09 |    |
+ * |----|----|----|VOLD|
+ * |F04 |F05 |F06 |    |
+ * |----|----|----|----|
+ * |F01 |F02 |F03 |    |
+ * |----|----|----|    |
+ * |         |    |    |
+ * `-------------------'
+ */
+  [_FL] = LAYOUT_numpad_6x4(
+    TG(_BL),  _______,  TG(_F2),   KC_MUTE, \
+    KC_F10,  KC_F11, KC_F12,   KC_VOLU, \
+    KC_F7,   KC_F8,  KC_F9,              \
+    KC_F4,   KC_F5,  KC_F6,    KC_VOLD, \
+    KC_F1,   KC_F2,  KC_F3,            \
+    _______,         ___,     _______
+  ),
+
+/* Keymap _F2: Function Layer
+ * ,-------------------.
+ * |    |    |    |    |
+ * |----|----|----|----|
+ * |RGBM|RGBP|BTOG|    |
+ * |----|----|----|----|
+ * |HUD |HUI |BON |    |
+ * |----|----|----|    |
+ * |SAD |SAI |BOFF|    |
+ * |----|----|----|----|
+ * |VAD |VAS |BSTP|    |
+ * |----|----|----|    |
+ * |   RGBT  |    |    |
+ * `-------------------'
+ */
+  [_F2] = LAYOUT_numpad_6x4(
+    TG(_BL),  TG(_FL),  _______,   _______, \
+    RGB_MOD,  RGB_M_P,  BL_TOGG,   _______, \
+    RGB_HUD,  RGB_HUI,  BL_ON,              \
+    RGB_SAD,  RGB_SAI,  BL_OFF,    _______, \
+    RGB_VAD,  RGB_VAI,  BL_STEP,            \
+    RGB_TOG,            ______,     _______
+  ),
+};
+
+};
